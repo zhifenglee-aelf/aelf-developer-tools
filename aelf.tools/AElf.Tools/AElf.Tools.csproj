@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <AssemblyName>AElf.Tools</AssemblyName>
+        <VersionPrefix>$(GrpcCsharpVersion)</VersionPrefix>
+        <!-- If changing targets, change also paths in Google.Protobuf.Tools.targets. -->
+        <TargetFrameworks>net46;netstandard1.3</TargetFrameworks>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' != 'net46' ">
+        <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Label="NuGet package definition" Condition=" '$(Configuration)' == 'Release' ">
+        <!-- TODO(kkm): Change to "build\" after splitting. -->
+        <BuildOutputTargetFolder>build\_protobuf\</BuildOutputTargetFolder>
+        <DevelopmentDependency>true</DevelopmentDependency>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <PackageId>AElf.Tools</PackageId>
+        <Authors>AELF FOUNDATION</Authors>
+        <Copyright>Copyright 2023 AELF FOUNDATION</Copyright>
+        <Description>A gRPC and Protocol Buffer compiler for compiling smart contracts</Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/AElfProject/AElf.Tools</PackageProjectUrl>
+        <PackageTags>gRPC RPC HTTP/2</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Build.Framework" Version="15.6.85" />
+      <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.6.85" />
+    </ItemGroup>
+
+    <ItemGroup Label="NuGet package assets">
+        <None Pack="true" PackagePath="build\" Include="build\**\*.xml; build\**\*.props; build\**\*.targets;" />
+        <None PackagePath="tools" Include="tools\**\*.*" Pack="true" Visible="false" />
+        <None Pack="true" PackagePath="build\native\include" Include="build\native\include\**\*.proto"  Visible="false"/>
+    </ItemGroup>
+
+</Project>
