@@ -7,7 +7,7 @@ An MsBuild tool to compile AElf contracts using protobuf and an extension tool. 
 
 Add a local nuget source - this only needs to be done once.
 ```
-nuget sources Add -Name Local -Source %USERPROFILE%\LocalNuget
+nuget sources Add -Name Local -Source $env:UserProfile\LocalNuget
 ```
 
 ### Pack this tool
@@ -19,7 +19,7 @@ dotnet pack
 ### Add the local nuget package to local source
 
 ```
-nuget add .\bin\Debug\AElf.Tools.1.0.0-dev.nupkg -Source %USERPROFILE%\LocalNuget
+nuget add .\bin\Debug\AElf.Tools.1.0.0-dev.nupkg -Source $env:UserProfile\LocalNuget
 ```
 
 ### Reference the tool in an AElf Contract project and include the protobuf sources

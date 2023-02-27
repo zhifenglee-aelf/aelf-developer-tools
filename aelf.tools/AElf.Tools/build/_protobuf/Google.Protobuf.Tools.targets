@@ -7,8 +7,8 @@
     <!-- Configuration is passing the smoke test. -->
     <Protobuf_ProjectSupported Condition=" '$(Protobuf_Generator)' != '' ">true</Protobuf_ProjectSupported>
     <!-- Allow assembly file to be specified externally for testing by setting property _Protobuf_MsBuildAssembly -->
-    <_Protobuf_MsBuildAssembly Condition=" '$(_Protobuf_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' == 'Core' ">netstandard1.3\AElf.Tools.dll</_Protobuf_MsBuildAssembly>
-    <_Protobuf_MsBuildAssembly Condition=" '$(_Protobuf_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' != 'Core' ">net46\AElf.Tools.dll</_Protobuf_MsBuildAssembly>
+    <_Protobuf_MsBuildAssembly Condition=" '$(_Protobuf_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' == 'Core' ">..\..\lib\netstandard1.3\AElf.Tools.dll</_Protobuf_MsBuildAssembly>
+    <_Protobuf_MsBuildAssembly Condition=" '$(_Protobuf_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' != 'Core' ">..\..\lib\net46\AElf.Tools.dll</_Protobuf_MsBuildAssembly>
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(_Protobuf_MsBuildAssembly)" TaskName="AElf.Tools.ProtoToolsPlatform" />

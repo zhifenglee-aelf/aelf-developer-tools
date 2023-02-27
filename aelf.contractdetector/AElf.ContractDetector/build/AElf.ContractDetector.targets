@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    </PropertyGroup>
+    <PropertyGroup>
+        <_ContractDetector_MsBuildAssembly Condition=" '$(_ContractDetector_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' == 'Core'  ">..\lib\netstandard1.3\AElf.ContractDetector.dll</_ContractDetector_MsBuildAssembly>
+        <_ContractDetector_MsBuildAssembly Condition=" '$(_ContractDetector_MsBuildAssembly)' == '' and '$(MSBuildRuntimeType)' != 'Core'  ">..\lib\net46\AElf.ContractDetector.dll</_ContractDetector_MsBuildAssembly>
+        <_ContractAssetDir Condition=" '$(_ContractAssetDir)' == '' ">$(ProjectDir)\assets\contract</_ContractAssetDir>
+    </PropertyGroup>
+
+    <UsingTask AssemblyFile="$(_ContractDetector_MsBuildAssembly)" TaskName="AElf.ContractDetector.FindContractPath" />
+
+    <Target Name="CopyContractAssetsToAssets" DependsOnTargets="ResolveReferences" BeforeTargets="BeforeBuild">
+        <ItemGroup>
+            <Contract Include="@(PackageReference)" Condition=" %(PackageReference.OutputItemType) == 'Contract' "/>
+        </ItemGroup>
+
+        <FindContractPath Condition=" '@(Contract)' != '' " Contract="@(Contract)" ReferencePath="@(ReferencePath)">
+            <Output TaskParameter="ContractPath" ItemName="_ContractPaths"/>
+        </FindContractPath>
+        <Copy SourceFiles="@(_ContractPaths)" DestinationFolder="$(_ContractAssetDir)" ContinueOnError="false" Condition=" @(_ContractPaths) != '' "/>
+    </Target>
+</Project>

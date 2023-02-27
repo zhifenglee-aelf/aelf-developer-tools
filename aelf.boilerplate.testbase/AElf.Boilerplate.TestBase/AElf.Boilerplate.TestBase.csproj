@@ -1,0 +1,120 @@
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <AssemblyName>AElf.Boilerplate.TestBase</AssemblyName>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>AElf.Boilerplate.TestBase</RootNamespace>
+        <Version>1.0.0-dev</Version>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn>0436</NoWarn>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="AElf.Tools" Version="1.0.0-dev">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AElf.ContractDetector" Version="1.0.0-dev" />
+        <PackageReference Include="AElf.EconomicSystem" Version="1.2.2" />
+        <PackageReference Include="AElf.GovernmentSystem" Version="1.2.2" />
+        <PackageReference Include="coverlet.msbuild" Version="2.5.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+        <PackageReference Include="Shouldly" Version="3.0.2" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.console" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AElf.ContractTestBase" Version="1.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AElf.Contracts.Configuration" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Consensus.AEDPoS" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.CrossChain" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Election" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Profit" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.MultiToken" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Parliament" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Vote" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.TokenConverter" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Treasury" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Economic" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Referendum" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.Association" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+        <PackageReference Include="AElf.Contracts.TokenHolder" Version="1.2.2">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </PackageReference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Protobuf Include="Protobuf/stub/*.proto">
+            <GrpcOutputOptions>stub</GrpcOutputOptions>
+            <Access>Internal</Access>
+        </Protobuf>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="assets\contract\*.*" />
+    </ItemGroup>
+
+</Project>

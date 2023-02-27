@@ -1,0 +1,41 @@
+﻿<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <AssetsPath>assets</AssetsPath>
+    </PropertyGroup>
+
+
+    <UsingTask
+            TaskName="GetMetadataTask"
+            TaskFactory="CodeTaskFactory"
+            AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+        <ParameterGroup>
+            <MyItemGroup ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+            <MetadataString Output="true" />
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System"/>
+            <Code Type="Fragment" Language="cs">
+                <![CDATA[
+          StringBuilder command = new StringBuilder();
+          foreach (ITaskItem item in MyItemGroup )
+          {
+              command.AppendFormat("ItemName={0}\r\n", item);
+              foreach (string parameter in item.MetadataNames)
+              {
+                  command.AppendFormat("  {0}={1}\r\n", parameter, item.GetMetadata(parameter));
+              }
+              command.AppendFormat("\r\n");
+          }
+          MetadataString = command.ToString();
+      ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+    
+    <ItemGroup Label="NuGet package assets">
+        <None Pack="true" PackagePath="assets\" Include="assets\**\*.dll" />
+    </ItemGroup>
+</Project>
