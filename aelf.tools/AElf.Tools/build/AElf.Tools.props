@@ -7,5 +7,6 @@
   <!-- Name of this file must match package ID. -->
   <!-- Packages will be split later. -->
   <Import Project="_contract/_Contract.Tools.props"/>
+  <Import Project="_patch/Patch.Tools.props"/>
   <Import Project="_protobuf/Google.Protobuf.Tools.props"/>
 </Project>

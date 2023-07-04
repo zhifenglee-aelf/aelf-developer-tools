@@ -35,10 +35,10 @@ nuget add .\bin\Debug\AElf.Tools.1.0.0-dev.nupkg -Source $env:UserProfile\LocalN
     <ItemGroup>
         <Protobuf Include="Protobuf/contract/*.proto" />
         <Protobuf Include="Protobuf/message/*.proto">
-            <GrpcOutputOptions>nocontract</GrpcOutputOptions>
+            <ContractOutputOptions>nocontract</ContractOutputOptions>
         </Protobuf>
         <Protobuf Include="Protobuf/reference/*.proto">
-            <GrpcOutputOptions>reference</GrpcOutputOptions>
+            <ContractOutputOptions>reference</ContractOutputOptions>
             <Access>Internal</Access>
         </Protobuf>
     </ItemGroup>

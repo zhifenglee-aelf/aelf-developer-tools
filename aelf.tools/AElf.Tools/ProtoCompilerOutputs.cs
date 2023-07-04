@@ -1,19 +1,5 @@
 #region Copyright notice and license
 
-// Copyright 2018 gRPC authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #endregion
 
 using System.Collections.Generic;
@@ -42,7 +28,7 @@ namespace AElf.Tools
 
         /// <summary>
         /// All Proto files in the project. A patched copy of all items from
-        /// Protobuf that might contain updated OutputDir and GrpcOutputDir
+        /// Protobuf that might contain updated OutputDir and ContractOutputDir
         /// attributes.
         /// </summary>
         [Output]
@@ -51,7 +37,7 @@ namespace AElf.Tools
         /// <summary>
         /// Output items per each potential output. We do not look at existing
         /// cached dependency even if they exist, since file may be refactored,
-        /// affecting whether or not gRPC code file is generated from a given proto.
+        /// affecting whether or not contract code file is generated from a given proto.
         /// Instead, all potentially possible generated sources are collected.
         /// It is a wise idea to generate empty files later for those potentials
         /// that are not actually created by protoc, so the dependency checks
