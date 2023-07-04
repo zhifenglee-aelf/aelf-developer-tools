@@ -1,25 +1,9 @@
 #region Copyright notice and license
 
-// Copyright 2018 gRPC authors.
-// Original Source: https://github.com/grpc/grpc/tree/master/src/csharp
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #endregion
 
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using AElf.Tools.Core.Internal;
 
 namespace AElf.Tools
 {
@@ -48,7 +32,7 @@ namespace AElf.Tools
             switch (Platform.Os)
             {
                 case CommonPlatformDetection.OSKind.Linux: Os = "linux"; break;
-                case CommonPlatformDetection.OSKind.MacOSX: Os = "macosx"; break;
+                case CommonPlatformDetection.OSKind.MacOSX: Os = "macos"; break;
                 case CommonPlatformDetection.OSKind.Windows: Os = "windows"; break;
                 default: Os = ""; break;
             }
@@ -62,7 +46,7 @@ namespace AElf.Tools
             }
 
             // Use x64 on macosx arm64 until a AElf.Tools protoc is shipped
-            if (Os == "macosx" && Cpu == "arm64")
+            if (Os == "macos" && Cpu == "arm64")
             {
                 Cpu = "x64";
             }

@@ -1,19 +1,5 @@
 #region Copyright notice and license
 
-// Copyright 2018 gRPC authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #endregion
 
 using System;
@@ -25,7 +11,7 @@ using Microsoft.Build.Utilities;
 
 namespace AElf.Tools
 {
-    internal static class DepFileUtil
+    public static class DepFileUtil
     {
         /*
            Sample dependency files. Notable features we have to deal with:
@@ -36,11 +22,11 @@ namespace AElf.Tools
             * Deal with ':' also being drive letter separator (second example).
 
         obj\Release\net45\/Foo.cs \
-        obj\Release\net45\/FooGrpc.cs: C:/foo/include/google/protobuf/wrappers.proto\
+        obj\Release\net45\/Foo.cs: C:/foo/include/google/protobuf/wrappers.proto\
          C:/projects/foo/src//foo.proto
 
-        C:\projects\foo\src\./foo.grpc.pb.cc \
-        C:\projects\foo\src\./foo.grpc.pb.h \
+        C:\projects\foo\src\./foo.pb.cc \
+        C:\projects\foo\src\./foo.pb.h \
         C:\projects\foo\src\./foo.pb.cc \
         C:\projects\foo\src\./foo.pb.h: C:/foo/include/google/protobuf/wrappers.proto\
          C:/foo/include/google/protobuf/any.proto\

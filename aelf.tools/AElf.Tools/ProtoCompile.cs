@@ -1,19 +1,5 @@
 #region Copyright notice and license
 
-// Copyright 2018 gRPC authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #endregion
 
 using System;
@@ -122,7 +108,7 @@ namespace AElf.Tools
                                       Each line corresponds to a single argument,
                                       even if it contains spaces.
         */
-        static string[] s_supportedGenerators = new[] { "cpp", "csharp", "java",
+        static string[] s_supportedGenerators = new[] { "csharp", "java",
                                                         "javanano", "js", "objc",
                                                         "php", "python", "ruby" };
 
@@ -342,24 +328,24 @@ namespace AElf.Tools
         public string[] AdditionalProtocArguments { get; set; }
 
         /// <summary>
-        /// Full path to the gRPC plugin executable. If specified, gRPC generation
+        /// Full path to the contract plugin executable. If specified, contract generation
         /// is enabled for the files.
-        /// Switch: --plugin=protoc-gen-grpc=
+        /// Switch: --plugin=protoc-gen-contract=
         /// </summary>
-        public string GrpcPluginExe { get; set; }
+        public string ContractPluginExe { get; set; }
 
         /// <summary>
-        /// Generated gRPC  directory. The generator property determines the
-        /// language. If gRPC is enabled but this is not given, OutputDir is used.
-        /// Switch: --grpc_out=
+        /// Generated contract  directory. The generator property determines the
+        /// language. If contract is enabled but this is not given, OutputDir is used.
+        /// Switch: --contract_out=
         /// </summary>
-        public string GrpcOutputDir { get; set; }
+        public string ContractOutputDir { get; set; }
 
         /// <summary>
-        /// gRPC Codegen options. See also OptionsFromMetadata.
-        /// --grpc_opt=opt1,opt2=val (comma-separated).
+        /// contract Codegen options. See also OptionsFromMetadata.
+        /// --contract_opt=opt1,opt2=val (comma-separated).
         /// </summary>
-        public string[] GrpcOutputOptions { get; set; }
+        public string[] ContractOutputOptions { get; set; }
 
         /// <summary>
         /// List of files written in addition to generated outputs. Includes a
@@ -420,15 +406,15 @@ namespace AElf.Tools
                 DependencyOut = DepFileUtil.GetDepFilenameForProto(ProtoDepDir, Protobuf[0].ItemSpec);
             }
 
-            if (GrpcPluginExe == null)
+            if (ContractPluginExe == null)
             {
-                GrpcOutputOptions = null;
-                GrpcOutputDir = null;
+                ContractOutputOptions = null;
+                ContractOutputDir = null;
             }
-            else if (GrpcOutputDir == null)
+            else if (ContractOutputDir == null)
             {
-                // Use OutputDir for gRPC output if not specified otherwise by user.
-                GrpcOutputDir = OutputDir;
+                // Use OutputDir for contract output if not specified otherwise by user.
+                ContractOutputDir = OutputDir;
             }
 
             return !Log.HasLoggedErrors && base.ValidateParameters();
@@ -479,9 +465,9 @@ namespace AElf.Tools
             var cmd = new ProtocResponseFileBuilder();
             cmd.AddSwitchMaybe(Generator + "_out", TrimEndSlash(OutputDir));
             cmd.AddSwitchMaybe(Generator + "_opt", OutputOptions);
-            cmd.AddSwitchMaybe("plugin=protoc-gen-contract", GrpcPluginExe);
-            cmd.AddSwitchMaybe("contract_out", TrimEndSlash(GrpcOutputDir));
-            cmd.AddSwitchMaybe("contract_opt", GrpcOutputOptions);
+            cmd.AddSwitchMaybe("plugin=protoc-gen-contract", ContractPluginExe);
+            cmd.AddSwitchMaybe("contract_out", TrimEndSlash(ContractOutputDir));
+            cmd.AddSwitchMaybe("contract_opt", ContractOutputOptions);
             if (ProtoPath != null)
             {
                 foreach (string path in ProtoPath)

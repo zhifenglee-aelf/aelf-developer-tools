@@ -1,29 +1,14 @@
 #region Copyright notice and license
 
-// Copyright 2021 The gRPC Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #endregion
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace AElf.Tools.Core.Internal
+namespace AElf.Tools
 {
     /// <summary>
-    /// This source file is shared by both Grpc.Core and Grpc.Tools to avoid duplication
+    /// This source file is shared by both AElf.Core and AElf.Tools to avoid duplication
     /// of platform detection code.
     /// </summary>
     internal static class CommonPlatformDetection
@@ -101,7 +86,7 @@ namespace AElf.Tools.Core.Internal
         [DllImport("libc")]
         static extern int uname(IntPtr buf);
 
-        // This code is copied from Grpc.Core/PlatformApis.cs
+        // This code is copied from Core/PlatformApis.cs
         static string GetUname()
         {
             var buffer = Marshal.AllocHGlobal(8192);
