@@ -18,3 +18,10 @@ mkdir temp\bingogame
 cd temp\bingogame
 dotnet new bingogame
 ```
+
+### Build
+```
+cd src
+dotnet build
+```
+Please note, place proto files in the Protobuf/xxx/ directory and contracts in the Contract/ directory. And change the nuget package version in csproj file, as well as the nuget repository address.
