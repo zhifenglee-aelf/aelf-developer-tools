@@ -1,4 +1,4 @@
-# AElf.Boilerplate.TestBase
+# AElf.Testing.TestBase
 
 This package is required in writing unit tests for AElf C# smart contracts.
 
@@ -20,13 +20,13 @@ dotnet pack
 ### Add the local nuget package to local source
 
 ```
-nuget add .\bin\Debug\AElf.Boilerplate.TestBase.1.0.0-dev.nupkg -Source $env:UserProfile\LocalNuget
+nuget add .\bin\Debug\AElf.Testing.TestBase.1.0.0-dev.nupkg -Source $env:UserProfile\LocalNuget
 ```
 
 ### Reference the tool in the test project
 
 ```xml
     <ItemGroup>
-        <PackageReference Include="AElf.Boilerplate.TestBase" Version="1.0.0-dev" />
+        <PackageReference Include="AElf.Testing.TestBase" Version="1.0.0-dev" />
     </ItemGroup>
 ```

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using AElf.ContractDeployer;
 using AElf.ContractTestBase;
 using AElf.ContractTestBase.ContractTestKit;
 using AElf.Kernel.Consensus.AEDPoS;
@@ -8,16 +7,41 @@ using AElf.Kernel.Miner.Application;
 using AElf.Kernel.SmartContract.Application;
 using AElf.OS.Node.Application;
 using AElf.Runtime.CSharp;
+using AElf.Sdk.CSharp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Volo.Abp;
 using Volo.Abp.Modularity;
 
-namespace AElf.Boilerplate.TestBase
+namespace AElf.Testing.TestBase
 {
-    [DependsOn(
-        typeof(SideChainContractTestModule)
-    )]
+    [DependsOn(typeof(MainChainDAppContractTestModule))]
+    public class ContractTestModule<T> : MainChainDAppContractTestModule where T : CSharpSmartContractAbstract 
+    {
+        public override void ConfigureServices(ServiceConfigurationContext context)
+        {
+            context.Services.AddSingleton<IContractInitializationProvider, ContractInitializationProvider<T>>();
+
+            context.Services.RemoveAll<IPreExecutionPlugin>();
+            context.Services.RemoveAll<IPostExecutionPlugin>();
+        }
+
+        public override void OnPreApplicationInitialization(ApplicationInitializationContext context)
+        {
+            var contractCodeProvider = context.ServiceProvider.GetService<IContractCodeProvider>();
+            var contractDllLocation = typeof(T).Assembly.Location;
+            var contractCodes = new Dictionary<string, byte[]>(contractCodeProvider.Codes)
+            {
+                {
+                    new ContractInitializationProvider<T>().ContractCodeName,
+                    File.ReadAllBytes(contractDllLocation)
+                }
+            };
+            contractCodeProvider.Codes = contractCodes;
+        }
+    }
+    
+    [DependsOn(typeof(SideChainContractTestModule))]
     public class SideChainDAppContractTestModule : SideChainContractTestModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -47,9 +71,7 @@ namespace AElf.Boilerplate.TestBase
         }
     }
 
-    [DependsOn(
-        typeof(MainChainContractTestModule)
-    )]
+    [DependsOn(typeof(MainChainContractTestModule))]
     public class MainChainDAppContractTestModule : MainChainContractTestModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -77,4 +99,5 @@ namespace AElf.Boilerplate.TestBase
         {
         }
     }
+    
 }

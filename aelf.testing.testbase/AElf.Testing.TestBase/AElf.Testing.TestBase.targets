@@ -4,8 +4,7 @@
     <PropertyGroup>
         <AssetsPath>assets</AssetsPath>
     </PropertyGroup>
-
-
+    
     <UsingTask
             TaskName="GetMetadataTask"
             TaskFactory="CodeTaskFactory"
@@ -33,9 +32,9 @@
             </Code>
         </Task>
     </UsingTask>
-
     
     <ItemGroup Label="NuGet package assets">
         <None Pack="true" PackagePath="assets\" Include="assets\**\*.dll" />
     </ItemGroup>
+    
 </Project>

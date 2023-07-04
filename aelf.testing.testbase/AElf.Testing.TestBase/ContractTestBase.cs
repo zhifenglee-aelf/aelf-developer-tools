@@ -1,4 +1,3 @@
-using AElf.ContractTestBase.ContractTestKit;
 using AElf.Kernel;
 using AElf.Kernel.Blockchain.Application;
 using AElf.Kernel.SmartContract.Application;
@@ -7,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
 
-namespace AElf.Boilerplate.TestBase
+namespace AElf.Testing.TestBase
 {
-    public class DAppContractTestBase<TModule> : ContractTestBase<TModule> where TModule : AbpModule
+    public class ContractTestBase<TModule> : ContractTestBase.ContractTestKit.ContractTestBase<TModule> where TModule : AbpModule
     {
-        public Address DAppContractAddress => GetAddress(DAppSmartContractAddressNameProvider.StringName);
+        protected Address ContractAddress => GetAddress(SmartContractAddressNameProvider.StringName);
 
-        public Address GetAddress(string contractStringName)
+        protected Address GetAddress(string contractStringName)
         {
             var addressService = Application.ServiceProvider.GetRequiredService<ISmartContractAddressService>();
             var blockchainService = Application.ServiceProvider.GetRequiredService<IBlockchainService>();
@@ -26,4 +25,5 @@ namespace AElf.Boilerplate.TestBase
             return address;
         }
     }
+    
 }

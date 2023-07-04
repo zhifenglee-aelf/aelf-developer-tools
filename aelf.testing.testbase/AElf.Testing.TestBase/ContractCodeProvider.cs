@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using AElf.ContractTestBase;
-using Google.Protobuf.WellKnownTypes;
 
-namespace AElf.Boilerplate.TestBase;
+namespace AElf.Testing.TestBase;
 
 public class ContractCodeProvider : IContractCodeProvider
 {
@@ -87,4 +85,5 @@ public class ContractCodeProvider : IContractCodeProvider
             .ToDictionary(x => x.contractName, x => x.contractCode);
         _codes = codes;
     }
+    
 }

@@ -3,14 +3,14 @@ using AElf.ContractTestBase;
 using AElf.Kernel.SmartContract.Application;
 using AElf.Types;
 
-namespace AElf.Boilerplate.TestBase
+namespace AElf.Testing.TestBase
 {
     public class SideChainDAppContractTestDeploymentListProvider : SideChainContractDeploymentListProvider, IContractDeploymentListProvider
     {
         public List<Hash> GetDeployContractNameList()
         {
             var list = base.GetDeployContractNameList();
-            list.Add(DAppSmartContractAddressNameProvider.Name);
+            list.Add(SmartContractAddressNameProvider.Name);
             return list;
         }
     }
@@ -20,7 +20,7 @@ namespace AElf.Boilerplate.TestBase
         public List<Hash> GetDeployContractNameList()
         {
             var list = base.GetDeployContractNameList();
-            list.Add(DAppSmartContractAddressNameProvider.Name);
+            list.Add(SmartContractAddressNameProvider.Name);
             return list;
         }
     }
