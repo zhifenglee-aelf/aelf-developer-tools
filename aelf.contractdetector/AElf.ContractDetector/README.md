@@ -21,14 +21,14 @@ dotnet pack
 ### Add the local nuget package to local source
 
 ```
-nuget add .\bin\Debug\AElf.ContractDetector.1.0.0-dev.nupkg -Source $env:UserProfile\LocalNuget
+nuget add .\bin\Debug\AElf.ContractDetector.1.0.0.nupkg -Source $env:UserProfile\LocalNuget
 ```
 
 ### Reference the tool in a `.csproject` and include the Contract dependencies
 
 ```xml
     <ItemGroup>
-        <PackageReference Include="AElf.ContractDetector" Version="1.0.0-dev" />
+        <PackageReference Include="AElf.ContractDetector" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="AElf.Contracts.Configuration" Version="1.2.2">
