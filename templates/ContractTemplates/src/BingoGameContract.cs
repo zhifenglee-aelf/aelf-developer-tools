@@ -1,12 +1,11 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using AElf;
+using AElf.Contracts.MultiToken;
 using AElf.CSharp.Core;
-using AElf.CSharp.Core.Extension;
 using AElf.Sdk.CSharp;
 using AElf.Types;
 using Google.Protobuf.WellKnownTypes;
-using AElf.Contracts.MultiToken;
 
 namespace AElf.Contracts.BingoGameContract
 {
@@ -34,7 +33,7 @@ namespace AElf.Contracts.BingoGameContract
 
             State.TokenContract.Value =
                 Context.GetContractAddressByName(SmartContractConstants.TokenContractSystemName);
-            State.ConsensusContract.Value =
+            State.RandomNumberAccessorContract.Value =
                 Context.GetContractAddressByName(SmartContractConstants.ConsensusContractSystemName);
             Assert(State.Admin.Value == null, "Already initialized.");
             State.Admin.Value = Context.Sender;
@@ -66,15 +65,12 @@ namespace AElf.Contracts.BingoGameContract
                 Memo = "Enjoy!"
             });
 
-            var roundNumber = State.ConsensusContract.GetCurrentRoundNumber.Call(new Empty());
-
             var boutInformation = new BoutInformation
             {
                 PlayBlockHeight = Context.CurrentHeight,
                 Amount = input.Amount,
                 Type = input.Type,
                 PlayId = Context.OriginTransactionId,
-                RoundNumber = roundNumber.Value,
                 PlayTime = Context.CurrentBlockTime,
                 Dices = new DiceList(),
                 PlayerAddress = Context.Sender
@@ -91,7 +87,7 @@ namespace AElf.Contracts.BingoGameContract
             for (int i = 0; i < 3; i++)
             {
                 var startIndex = i * 8;
-                var intValue = int.Parse(hexString.Substring(startIndex, 8), System.Globalization.NumberStyles.HexNumber);
+                var intValue = int.Parse(hexString.Substring(startIndex, 8), NumberStyles.HexNumber);
                 var dice = (intValue % 6 + 5) % 6 + 1;
                 dices.Add(dice);
             }
@@ -120,23 +116,19 @@ namespace AElf.Contracts.BingoGameContract
             var targetHeight = boutInformation.PlayBlockHeight.Add(BingoGameContractConstants.BingoBlockHeight);
             Assert(targetHeight <= Context.CurrentHeight, "Invalid target height.");
 
-            if (State.ConsensusContract.Value == null)
+            if (State.RandomNumberAccessorContract.Value == null)
             {
-                State.ConsensusContract.Value =
+                State.RandomNumberAccessorContract.Value =
                     Context.GetContractAddressByName(SmartContractConstants.ConsensusContractSystemName);
             }
 
-            var randomHash = State.ConsensusContract.GetRandomHash.Call(new Int64Value
+            var randomHash = State.RandomNumberAccessorContract.GetRandomHash.Call(new Int64Value
             {
                 Value = targetHeight
             });
 
             Assert(randomHash != null && !randomHash.Value.IsNullOrEmpty(),
                 "Still preparing your game result, please wait for a while :)");
-
-            var outValue = GetCurrentOutValue(boutInformation.RoundNumber, boutInformation.PlayTime);
-
-            randomHash = HashHelper.XorAndCompute(randomHash, outValue ?? Hash.Empty);
 
             var usefulHash = HashHelper.ConcatAndCompute(randomHash, playerInformation.Seed);
             // var bitArraySum = SumHash(usefulHash);
@@ -170,148 +162,11 @@ namespace AElf.Contracts.BingoGameContract
 
             return new BoolValue { Value = isWin };
         }
-
-        private Hash GetOutValue(long roundNumber, Timestamp playTime)
-        {
-            var bingoBlockTime = BingoGameContractConstants.BingoBlockHeight.Div(2);
-
-            var round = State.ConsensusContract.GetRoundInformation.Call(new Int64Value
-            {
-                Value = roundNumber
-            });
-
-            var miners = round.RealTimeMinersInformation.Values.ToList();
-
-            var miner = miners.FirstOrDefault(m =>
-                m.ActualMiningTimes.Contains(playTime.AddSeconds(bingoBlockTime)));
-
-            if (miner == null) return null;
-
-            var value = miner.OutValue;
-
-            if (value == null || value.Value.IsNullOrEmpty())
-            {
-                if (miners.Last().Equals(miner))
-                {
-                    miners.Remove(miner);
-
-                    value = miners.LastOrDefault()?.OutValue;
-                }
-            }
-
-            return value;
-        }
-
-        private Hash GetLatestOutValue(long roundNumber, Timestamp playTime)
-        {
-            var bingoBlockTime = BingoGameContractConstants.BingoBlockHeight.Div(2);
-
-            var round = State.ConsensusContract.GetRoundInformation.Call(new Int64Value
-            {
-                Value = roundNumber
-            });
-
-            var miners = round.RealTimeMinersInformation.Values.OrderBy(m => m.Order).ToList();
-
-            Hash value = null;
-            foreach (var miner in miners)
-            {
-                var timestamp = miner.ActualMiningTimes.FirstOrDefault(t =>
-                    t > playTime.AddSeconds(bingoBlockTime));
-                if (timestamp != null)
-                {
-                    value = miner.OutValue;
-
-                    if (value == null || value.Value.IsNullOrEmpty())
-                    {
-                        if (miners.Last().Equals(miner))
-                        {
-                            miners.Remove(miner);
-
-                            value = miners.LastOrDefault()?.OutValue;
-                        }
-                    }
-                }
-            }
-
-            return value;
-        }
-
-        private Hash GetCurrentOutValue(long roundNumber, Timestamp playTime)
-        {
-            var outValue = GetOutValue(roundNumber, playTime);
-            if (outValue != null) return outValue;
-
-            outValue = GetLatestOutValue(roundNumber, playTime);
-            if (outValue != null) return outValue;
-
-            var currentRoundNumber = State.ConsensusContract.GetCurrentRoundNumber.Call(new Empty());
-
-            if (currentRoundNumber.Value > roundNumber)
-            {
-                var outValueLatest = GetOutValue(roundNumber + 1, playTime);
-
-                if (outValueLatest == null)
-                {
-                    outValueLatest = GetLatestOutValue(roundNumber + 1, playTime);
-                }
-
-                outValue = outValueLatest;
-            }
-
-            return outValue;
-        }
-
-        public override Int64Value GetAward(Hash input)
-        {
-            Assert(input != null && !input.Value.IsNullOrEmpty(), "Invalid input.");
-            var boutInformation = State.BoutInformations[input];
-            return boutInformation == null
-                ? new Int64Value { Value = 0 }
-                : new Int64Value { Value = boutInformation.Award };
-        }
-
+        
         public override Empty Quit(Empty input)
         {
             State.PlayerInformation.Remove(Context.Sender);
             return new Empty();
-        }
-
-        public override PlayerInformation GetPlayerInformation(Address input)
-        {
-            return State.PlayerInformation[input];
-        }
-
-        public override Empty SetLimitSettings(LimitSettings input)
-        {
-            Assert(State.Admin.Value == Context.Sender, "No permission");
-            Assert(input.MinAmount >= 0 && input.MaxAmount >= input.MinAmount, "Invalid input");
-
-            State.MinimumBet.Value = input.MinAmount;
-            State.MaximumBet.Value = input.MaxAmount;
-
-            return new Empty();
-        }
-
-        public override LimitSettings GetLimitSettings(Empty input)
-        {
-            return new LimitSettings
-            {
-                MaxAmount = State.MaximumBet.Value,
-                MinAmount = State.MinimumBet.Value
-            };
-        }
-
-        public override Int32Value GetRandomNumber(Hash input)
-        {   
-            Assert(input != null && !input.Value.IsNullOrEmpty(), "Invalid input.");
-            var playerInformation = GetPlayerInformation();
-
-            var boutInformation = State.BoutInformations[input];
-
-            Assert(boutInformation != null, "Bout not found.");
-
-            return new Int32Value { Value = boutInformation!.RandomNumber };
         }
 
         public override BoutInformation GetBoutInformation(GetBoutInformationInput input)

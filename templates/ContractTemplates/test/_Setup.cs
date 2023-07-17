@@ -1,7 +1,7 @@
-﻿using AElf.Cryptography.ECDSA;
-using AElf.Testing.TestBase;
-using AElf.Contracts.Consensus.AEDPoS;
+﻿using AElf.Contracts.Consensus.AEDPoS;
 using AElf.Contracts.MultiToken;
+using AElf.Cryptography.ECDSA;
+using AElf.Testing.TestBase;
 using AElf.Types;
 
 namespace AElf.Contracts.BingoGameContract
@@ -18,7 +18,7 @@ namespace AElf.Contracts.BingoGameContract
         internal BingoGameContractContainer.BingoGameContractStub BingoGameContractStub { get; set; }
         internal BingoGameContractContainer.BingoGameContractStub UserStub { get; set; }
         internal TokenContractContainer.TokenContractStub TokenContractStub { get; set; }
-        internal AEDPoSContractImplContainer.AEDPoSContractImplStub AEDPoSContractStub { get; set; }
+        internal RandomNumberAccessorContractContainer.RandomNumberAccessorContractStub RandomNumberAccessorContractStub { get; set; }
         protected ECKeyPair DefaultKeyPair => Accounts[0].KeyPair;
         protected Address DefaultAddress => Accounts[0].Address;
         protected ECKeyPair UserKeyPair => Accounts[1].KeyPair;
@@ -29,7 +29,7 @@ namespace AElf.Contracts.BingoGameContract
             BingoGameContractStub = GetBingoGameContractStub(DefaultKeyPair);
             UserStub = GetBingoGameContractStub(UserKeyPair);
             TokenContractStub = GetTokenContractTester(DefaultKeyPair);
-            AEDPoSContractStub = GetAEDPoSContractStub(DefaultKeyPair);
+            RandomNumberAccessorContractStub = GetRandomNumberAccessorContractStub(DefaultKeyPair);
         }
 
         internal BingoGameContractContainer.BingoGameContractStub GetBingoGameContractStub(ECKeyPair senderKeyPair)
@@ -42,9 +42,9 @@ namespace AElf.Contracts.BingoGameContract
             return GetTester<TokenContractContainer.TokenContractStub>(TokenContractAddress, keyPair);
         }
 
-        internal AEDPoSContractImplContainer.AEDPoSContractImplStub GetAEDPoSContractStub(ECKeyPair keyPair)
+        internal RandomNumberAccessorContractContainer.RandomNumberAccessorContractStub GetRandomNumberAccessorContractStub(ECKeyPair keyPair)
         {   
-            return GetTester<AEDPoSContractImplContainer.AEDPoSContractImplStub>(ConsensusContractAddress, keyPair);
+            return GetTester<RandomNumberAccessorContractContainer.RandomNumberAccessorContractStub>(ConsensusContractAddress, keyPair);
         }
     }
     

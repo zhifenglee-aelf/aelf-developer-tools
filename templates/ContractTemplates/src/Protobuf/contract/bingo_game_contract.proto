@@ -23,24 +23,10 @@ service BingoGameContract {
     }
     rpc Quit (google.protobuf.Empty) returns (google.protobuf.Empty) {
     }
-    rpc SetLimitSettings (LimitSettings) returns (google.protobuf.Empty) {
-    }
     rpc Initialize (google.protobuf.Empty) returns (google.protobuf.Empty) {
     }
 
     // Views
-    rpc GetAward (aelf.Hash) returns (google.protobuf.Int64Value) {
-        option (aelf.is_view) = true;
-    }
-    rpc GetPlayerInformation (aelf.Address) returns (PlayerInformation) {
-        option (aelf.is_view) = true;
-    }
-    rpc GetLimitSettings (google.protobuf.Empty) returns (LimitSettings) {
-        option (aelf.is_view) = true;
-    }
-    rpc GetRandomNumber (aelf.Hash) returns (google.protobuf.Int32Value) {
-        option (aelf.is_view) = true;
-    }
     rpc GetBoutInformation (GetBoutInformationInput) returns (BoutInformation) {
         option (aelf.is_view) = true;
     }

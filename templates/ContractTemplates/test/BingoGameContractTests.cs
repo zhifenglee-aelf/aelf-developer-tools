@@ -15,15 +15,6 @@ namespace AElf.Contracts.BingoGameContract
             await BingoGameContractStub.Initialize.SendAsync(new Empty());
             await BingoGameContractStub.Initialize.SendAsync(new Empty());
         }
-        [Fact]
-        public async Task RegisterTests()
-        {
-            await InitializeTests();
-            await BingoGameContractStub.Register.SendAsync(new Empty());
-            var information = await BingoGameContractStub.GetPlayerInformation.CallAsync(DefaultAddress);
-            information.Seed.ShouldNotBeNull();
-            information.RegisterTime.ShouldNotBeNull();
-        }
         private async Task InitializeAsync()
         {
             await TokenContractStub.Transfer.SendAsync(new TransferInput
@@ -44,7 +35,7 @@ namespace AElf.Contracts.BingoGameContract
         {
             await InitializeTests();
             await InitializeAsync();
-            await RegisterTests();
+            await BingoGameContractStub.Register.SendAsync(new Empty());
 
             var amount = 1_00000000;
 
@@ -53,7 +44,6 @@ namespace AElf.Contracts.BingoGameContract
                 Amount = amount,
                 Type = BingoType.Small
             });
-            var information = await BingoGameContractStub.GetPlayerInformation.CallAsync(DefaultAddress);
 
             return tx.TransactionResult.TransactionId;
         }
