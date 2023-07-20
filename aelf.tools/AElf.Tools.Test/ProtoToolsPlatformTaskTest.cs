@@ -141,7 +141,7 @@ namespace AElf.Tools.Test
         public void OsIsMacOsX()
         {
             _osMatched++;
-            Assert.AreEqual("macos", _task.Os);
+            Assert.AreEqual("macosx", _task.Os);
         }
 
 #endif  // NETCORE
