@@ -13,9 +13,17 @@ docker build -t aelf/standalone-testing-node .
 
 ```
 docker run --name aelf-node --restart always \
-    -itd --network host -p 6801:6801 -p 8000:8000 -p 5001:5001 \
-    -p 5011:5011 \
+    -itd -p 6801:6801 -p 8000:8000 -p 5001:5001 -p 5011:5011 \
     --ulimit core=-1 --security-opt \
     seccomp=unconfined --privileged=true \
     aelf/standalone-testing-node
 ```
+
+### Load keystore
+
+Install aelf-command locally. Run the following commands to load keystore locally.
+```
+aelf-command load 1111111111111111111111111111111111111111111111111111111111111111
+```
+
+
