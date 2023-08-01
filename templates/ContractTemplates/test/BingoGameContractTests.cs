@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using AElf.Contracts.MultiToken;
 using AElf.Types;
 using Google.Protobuf.WellKnownTypes;
-using Shouldly;
 using Xunit;
 
 namespace AElf.Contracts.BingoGameContract
@@ -10,7 +9,7 @@ namespace AElf.Contracts.BingoGameContract
 
     public class BingoGameContractTests : TestBase
     {
-        public async Task InitializeTests()
+        private async Task InitializeTests()
         {
             await BingoGameContractStub.Initialize.SendAsync(new Empty());
             await BingoGameContractStub.Initialize.SendAsync(new Empty());

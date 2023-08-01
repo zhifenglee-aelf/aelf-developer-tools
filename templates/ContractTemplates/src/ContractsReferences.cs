@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using AElf.Contracts.Consensus.AEDPoS;
 using AElf.Contracts.MultiToken;
 
 namespace AElf.Contracts.BingoGameContract
 {
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public partial class BingoGameContractState
     {
         internal TokenContractContainer.TokenContractReferenceState TokenContract { get; set; }

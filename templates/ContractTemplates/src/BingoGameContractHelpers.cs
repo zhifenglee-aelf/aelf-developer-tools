@@ -2,15 +2,6 @@ namespace AElf.Contracts.BingoGameContract
 {
     public partial class BingoGameContract
     {
-        private PlayerInformation GetPlayerInformation()
-        {
-            var playerInformation = State.PlayerInformation[Context.Sender];
-            
-            Assert(playerInformation != null, $"User {Context.Sender} not registered before.");
-
-            return playerInformation;
-        }
-
         private BingoType GetDiceNumSumResult(int bitArraySum)
         {
             Assert(bitArraySum is >= 3 and <= 18, $"random number: {bitArraySum} error");

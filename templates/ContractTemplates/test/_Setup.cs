@@ -1,4 +1,5 @@
-﻿using AElf.Contracts.Consensus.AEDPoS;
+﻿using System.Diagnostics.CodeAnalysis;
+using AElf.Contracts.Consensus.AEDPoS;
 using AElf.Contracts.MultiToken;
 using AElf.Cryptography.ECDSA;
 using AElf.Testing.TestBase;
@@ -10,13 +11,13 @@ namespace AElf.Contracts.BingoGameContract
     {
         
     }
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class TestBase : ContractTestBase<Module>
     {
         // You can get address of any contract via GetAddress method, for example:
         // internal Address ContractAddress => GetAddress(DAppSmartContractAddressNameProvider.StringName);
         
         internal BingoGameContractContainer.BingoGameContractStub BingoGameContractStub { get; set; }
-        internal BingoGameContractContainer.BingoGameContractStub UserStub { get; set; }
         internal TokenContractContainer.TokenContractStub TokenContractStub { get; set; }
         internal RandomNumberAccessorContractContainer.RandomNumberAccessorContractStub RandomNumberAccessorContractStub { get; set; }
         protected ECKeyPair DefaultKeyPair => Accounts[0].KeyPair;
@@ -27,7 +28,6 @@ namespace AElf.Contracts.BingoGameContract
         public TestBase()
         {
             BingoGameContractStub = GetBingoGameContractStub(DefaultKeyPair);
-            UserStub = GetBingoGameContractStub(UserKeyPair);
             TokenContractStub = GetTokenContractTester(DefaultKeyPair);
             RandomNumberAccessorContractStub = GetRandomNumberAccessorContractStub(DefaultKeyPair);
         }

@@ -75,7 +75,7 @@ namespace AElf.Contracts.BingoGameContract
                 Dices = new DiceList(),
                 PlayerAddress = Context.Sender
             };
-            State.BoutInformations[Context.OriginTransactionId] = boutInformation;
+            State.BoutInformation[Context.OriginTransactionId] = boutInformation;
             return new Int64Value { Value = Context.CurrentHeight.Add(BingoGameContractConstants.BingoBlockHeight) };
         }    
         
@@ -105,7 +105,7 @@ namespace AElf.Contracts.BingoGameContract
 
             Assert(playerInformation != null, $"User {Context.Sender} not registered before.");
 
-            var boutInformation = State.BoutInformations[input];
+            var boutInformation = State.BoutInformation[input];
 
             Assert(boutInformation != null, "Bout not found.");
 
@@ -158,7 +158,7 @@ namespace AElf.Contracts.BingoGameContract
             boutInformation.Dices.Dices.Add(dices[2]);
 
             State.PlayerInformation[boutInformation.PlayerAddress] = playerInformation;
-            State.BoutInformations[input] = boutInformation;
+            State.BoutInformation[input] = boutInformation;
 
             return new BoolValue { Value = isWin };
         }
@@ -174,7 +174,7 @@ namespace AElf.Contracts.BingoGameContract
             Assert(input != null, "Invalid input");
             Assert(input!.PlayId != null && !input.PlayId.Value.IsNullOrEmpty(), "Invalid playId");
 
-            var boutInformation = State.BoutInformations[input.PlayId];
+            var boutInformation = State.BoutInformation[input.PlayId];
 
             Assert(boutInformation != null, "Bout not found.");
 
