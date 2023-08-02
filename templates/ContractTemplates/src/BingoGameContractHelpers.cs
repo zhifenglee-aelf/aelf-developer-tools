@@ -1,5 +1,6 @@
 namespace AElf.Contracts.BingoGameContract
 {
+    // This class is used to write some tool methods.
     public partial class BingoGameContract
     {
         private BingoType GetDiceNumSumResult(int bitArraySum)

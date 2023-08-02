@@ -7,15 +7,20 @@ using AElf.Types;
 
 namespace AElf.Contracts.BingoGameContract
 {
+    // This class is used to load the context required for unit testing.
     public class Module : ContractTestModule<BingoGameContract>
     {
         
     }
+    
+    // The TestBase class inherit ContractTestBase class, which is used to define and get stub classes required for unit testing.
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class TestBase : ContractTestBase<Module>
     {
         // You can get address of any contract via GetAddress method, for example:
-        // internal Address ContractAddress => GetAddress(DAppSmartContractAddressNameProvider.StringName);
+        // internal Address ContractAddress => GetAddress(SmartContractAddressNameProvider.StringName);
+        // Using the address and key to get stub, Like this:
+        // TokenContractContainer.TokenContractStub stub = GetTester<TokenContractContainer.TokenContractStub>(TokenContractAddress, keyPair);
         
         internal BingoGameContractContainer.BingoGameContractStub BingoGameContractStub { get; set; }
         internal TokenContractContainer.TokenContractStub TokenContractStub { get; set; }

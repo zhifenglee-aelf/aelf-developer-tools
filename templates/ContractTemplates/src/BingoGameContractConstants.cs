@@ -1,5 +1,6 @@
 namespace AElf.Contracts.BingoGameContract
 {
+    // The constant class defines some constants.
     public class BingoGameContractConstants
     {
         public const string CardSymbol = "ELF";

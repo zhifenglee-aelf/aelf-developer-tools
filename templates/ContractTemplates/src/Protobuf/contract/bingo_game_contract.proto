@@ -5,16 +5,19 @@ import "aelf/options.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
+// Import proto file from base/message/reference folders, need to use the absolute path.
 import "Protobuf/base/acs12.proto";
 import "Protobuf/reference/token_contract.proto";
 
 option csharp_namespace = "AElf.Contracts.BingoGameContract";
 
 service BingoGameContract {
+    // Declare a state class, need to create a corresponding state class file.
     option (aelf.csharp_state) = "AElf.Contracts.BingoGameContract.BingoGameContractState";
     option (aelf.base) = "Protobuf/base/acs12.proto";
 
     // Actions
+    // Declare methods name and input/output.
     rpc Register (google.protobuf.Empty) returns (google.protobuf.Empty) {
     }
     rpc Play (PlayInput) returns (google.protobuf.Int64Value) {
@@ -27,11 +30,13 @@ service BingoGameContract {
     }
 
     // Views
+    // Declare methods name and input/output. Need to add "is_view=true" attribute.
     rpc GetBoutInformation (GetBoutInformationInput) returns (BoutInformation) {
         option (aelf.is_view) = true;
     }
 }
 
+// Define the class of input/output.
 enum BingoType {
     Small = 0;
     Large = 1;

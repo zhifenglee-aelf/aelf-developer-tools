@@ -7,6 +7,7 @@ using Xunit;
 namespace AElf.Contracts.BingoGameContract
 {
 
+    // This class is unit test class, and it inherit TestBase. Write your unit test code inside it.
     public class BingoGameContractTests : TestBase
     {
         private async Task InitializeTests()

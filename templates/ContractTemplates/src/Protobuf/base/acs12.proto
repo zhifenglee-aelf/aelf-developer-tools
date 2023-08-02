@@ -19,7 +19,7 @@ service UserContract{
     
 }
 
-//Specified method fee for user contract.
+// Specified method fee for user contract.
 message UserContractMethodFees {
   // List of fees to be charged.
   repeated UserContractMethodFee fees = 2;
