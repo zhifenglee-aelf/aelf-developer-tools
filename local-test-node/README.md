@@ -14,8 +14,9 @@ docker build -t aelf/standalone-testing-node .
 ```
 docker run --name aelf-node --restart always \
     -itd -p 6801:6801 -p 8000:8000 -p 5001:5001 -p 5011:5011 \
-    --ulimit core=-1 --security-opt \
-    seccomp=unconfined --privileged=true \
+    --platform linux/amd64 \
+    --ulimit core=-1 \
+    --security-opt seccomp=unconfined --privileged=true \
     aelf/standalone-testing-node
 ```
 
