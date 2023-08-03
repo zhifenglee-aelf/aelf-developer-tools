@@ -24,24 +24,6 @@ namespace AElf.Contracts.HelloWorld
             var updatedMessage = await HelloWorldStub.Read.CallAsync(new Empty());
             updatedMessage.Value.ShouldBe(inputValue);
         }
-
-        [Fact]
-        public async Task Read_ShouldReturnValue()
-        {
-            // Arrange
-            var messageValue = "Hello, World!";
-            var message = new StringValue { Value = messageValue };
-            await HelloWorldStub.Update.SendAsync(message);
-
-            //State.Message.Value = messageValue;
-            var input = new Empty();
-
-            // Act
-            var result = await HelloWorldStub.Read.CallAsync(input);
-
-            // Assert
-            result.Value.ShouldBe(messageValue);
-        }
     }
     
 }
