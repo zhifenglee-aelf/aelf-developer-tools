@@ -20,13 +20,13 @@ dotnet pack
 ### Add the local nuget package to local source
 
 ```
-nuget add .\bin\Debug\AElf.Testing.TestBase.1.0.0-dev.nupkg -Source $env:UserProfile\LocalNuget
+nuget add .\bin\Debug\AElf.Testing.TestBase.1.0.0.nupkg -Source $env:UserProfile\LocalNuget
 ```
 
 ### Reference the tool in the test project
 
 ```xml
     <ItemGroup>
-        <PackageReference Include="AElf.Testing.TestBase" Version="1.0.0-dev" />
+        <PackageReference Include="AElf.Testing.TestBase" Version="1.0.0" />
     </ItemGroup>
 ```

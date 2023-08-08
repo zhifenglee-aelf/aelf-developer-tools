@@ -23,7 +23,6 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/AElfProject/AElf.Tools</PackageProjectUrl>
         <PackageTags>RPC HTTP/2</PackageTags>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <!--    <ItemGroup>-->
