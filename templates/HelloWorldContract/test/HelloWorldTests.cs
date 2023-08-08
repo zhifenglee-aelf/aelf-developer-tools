@@ -7,8 +7,7 @@ using Xunit;
 namespace AElf.Contracts.HelloWorld
 {
     // This class is unit test class, and it inherit TestBase. Write your unit test code inside it.
-    [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
-    public partial class HelloWorldTests : TestBase
+    public class HelloWorldTests : TestBase
     {
         [Fact]
         public async Task Update_ShouldUpdateMessageAndFireEvent()
