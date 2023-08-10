@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using AElf.Sdk.CSharp.State;
-using AElf.Types;
 
 namespace AElf.Contracts.HelloWorld
 {

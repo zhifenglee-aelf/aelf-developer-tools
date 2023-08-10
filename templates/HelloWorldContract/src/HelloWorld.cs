@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using AElf.Sdk.CSharp;
 using Google.Protobuf.WellKnownTypes;
 
