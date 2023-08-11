@@ -16,7 +16,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="ContractTemplates\**\*" Exclude="ContractTemplates\**\bin\**;ContractTemplates\**\obj\**" />
+        <Content Include="HelloWorldContract\**\*" Exclude="HelloWorldContract\**\bin\**;HelloWorldContract\**\obj\**" />
         <Compile Remove="**\*" />
     </ItemGroup>
 

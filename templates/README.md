@@ -15,8 +15,8 @@ dotnet new install .\
 
 ### Create a project using the template
 ```
-mkdir temp\HelloWorldContract
-cd temp\HelloWorldContract
+mkdir temp\AElfContract
+cd temp\AElfContract
 dotnet new aelfcontract
 ```
 
