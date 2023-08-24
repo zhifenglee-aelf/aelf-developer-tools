@@ -2,11 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-        <ObjPath>$(ProjectDir)obj/$(Configuration)/$(TargetFramework)/</ObjPath>
+        <ProjectRootPath>$(ProjectDir)../</ProjectRootPath>
+        <ObjSrcPath>$(ProjectRootPath)src/obj/$(Configuration)/$(TargetFramework)/</ObjSrcPath>
+        <ObjTestPath>$(ProjectRootPath)test/obj/$(Configuration)/$(TargetFramework)/</ObjTestPath>
     </PropertyGroup>
     
-    <Target Name="CleanObjBeforeBuild" BeforeTargets="CodeCompile;Restore">
-        <RemoveDir Directories="$(ObjPath)Protobuf" />
+    <!--  Clean up the old code generated before running build  -->
+    <Target Name="CleanObjBeforeBuild" BeforeTargets="Restore">
+        <RemoveDir Directories="$(ObjSrcPath)Protobuf" />
+        <RemoveDir Directories="$(ObjTestPath)Protobuf" />
     </Target>
     
     <!-- Name of this file must match package ID. -->
