@@ -2,7 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-        <ObjDirPath>$(MSBuildProjectDirectory)/$(IntermediateOutputPath)</ObjDirPath>
     </PropertyGroup>
     
     <!-- Name of this file must match package ID. -->
