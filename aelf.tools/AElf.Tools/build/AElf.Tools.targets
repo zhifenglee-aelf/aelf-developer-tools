@@ -5,11 +5,6 @@
         <ObjDirPath>$(MSBuildProjectDirectory)/$(IntermediateOutputPath)</ObjDirPath>
     </PropertyGroup>
     
-    <!--  Clean up the old code generated before running build  -->
-    <Target Name="CleanObjBeforeBuild" BeforeTargets="Restore">
-        <RemoveDir Directories="$(ObjDirPath)Protobuf" />
-    </Target>
-    
     <!-- Name of this file must match package ID. -->
     <!-- Packages will be split later. -->
     <Import Project="_contract/_Contract.Tools.targets"/>
