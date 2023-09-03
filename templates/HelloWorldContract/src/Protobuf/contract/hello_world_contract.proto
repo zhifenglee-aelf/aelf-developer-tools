@@ -16,7 +16,7 @@ service HelloWorld {
   }
 
   // Views (methods that don't modify contract state)
-  // An event that will be emitted from contract method call
+  // Get the value stored from contract state
   rpc Read (google.protobuf.Empty) returns (google.protobuf.StringValue) {
     option (aelf.is_view) = true;
   }

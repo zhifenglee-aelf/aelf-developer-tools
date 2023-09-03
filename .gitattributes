@@ -1,1 +1,3 @@
+# Currently, due to insufficient storage space on GitHub LFS, large file storage for this project is temporarily disabled. Therefore, the configuration of LFS has been commented out.
+# In the future, if there is sufficient LFS storage space, you can uncomment this configuration to use GitHub LFS for storing large files.
 # **/tools/**/* filter=lfs diff=lfs merge=lfs -text
