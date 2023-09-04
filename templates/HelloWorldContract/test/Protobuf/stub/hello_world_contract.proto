@@ -3,11 +3,11 @@ syntax = "proto3";
 import "aelf/options.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
-// Define the namespace of this class
+// The namespace of this class
 option csharp_namespace = "AElf.Contracts.HelloWorld";
 
 service HelloWorld {
-  // Declare a state class, need to create a corresponding state class file
+  // The name of the state class the smart contract is going to use to access blockchain state
   option (aelf.csharp_state) = "AElf.Contracts.HelloWorld.HelloWorldState";
 
   // Actions (methods that modify contract state)
