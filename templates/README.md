@@ -1,7 +1,6 @@
 # AElf C# smart contract templates
 
 This folder contains templates of AElf smart contracts in C#:
-- ContractTemplate
 - HelloWorldContract
 
 ## Usage
