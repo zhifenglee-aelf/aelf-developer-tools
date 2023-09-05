@@ -3,6 +3,7 @@
     <PropertyGroup>
         <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     </PropertyGroup>
+
     <!-- Name of this file must match package ID. -->
     <!-- Packages will be split later. -->
     <Import Project="_contract/_Contract.Tools.targets"/>
