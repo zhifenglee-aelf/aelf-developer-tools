@@ -17,32 +17,22 @@
         <ProtoProjectCompilePath Include="$(ProjectDir)Protobuf/base;$(ProjectDir)Protobuf/message;$(ProjectDir)Protobuf/stub;" Condition="Exists('$(ProjectDir)Protobuf/stub')" />
     </ItemGroup>
     
-    <UsingTask AssemblyFile="$(_Tools_MsBuildAssembly)" TaskName="AElf.Tools.ProtoTypeResolve" />
     <Target Name="ProtoRecoginziton" BeforeTargets="BeforeBuild">
         <ItemGroup>
-            <ProtoAllRef 
-                Include="@(PackageReference)" 
-                Condition=" '%(PackageReference.Identity)' == 'AElf.ACS1' OR 
-                '%(PackageReference.Identity)' == 'AElf.ACS2' " />
+            <ProtoPackagePathOfBaseType Include="@(PackageReference->'$(NuGetPackageRoot)%(Identity)/%(Version)/Protobuf'->Exists())" 
+                                        Condition="'%(PackageReference.ProtoType)' == '' OR '%(PackageReference.ProtoType)' == 'base'"/>
+            <ProtoPackagePathOfRefType Include="@(PackageReference->'$(NuGetPackageRoot)%(Identity)/%(Version)/Protobuf'->Exists())" 
+                                       Condition="'%(PackageReference.ProtoType)' != '' AND '%(PackageReference.ProtoType)' == 'reference'"/>
+            <ProtoPathOfBaseType Include="@(ProtoPackagePathOfBaseType->'%(Identity)/**/*.proto')" />
+            <ProtoPathOfRefType Include="@(ProtoPackagePathOfRefType->'%(Identity)/**/*.proto')" />
         </ItemGroup>
 
-        <ProtoTypeResolve
-                Condition=" '@(ProtoAllRef)' != '' "
-                ProtoAllRef="@(ProtoAllRef)"
-                ReferencePath="@(ReferencePath)"
-                NugetRoot="$(NuGetPackageRoot)">
-            <Output TaskParameter="TargetBaseProto" ItemName="_TargetBaseProtos"/>
-            <Output TaskParameter="TargetBasePath" ItemName="_TargetBasePaths"/>
-            <Output TaskParameter="TargetRefProto" ItemName="_TargetRefProtos"/>
-            <Output TaskParameter="TargetRefPath" ItemName="_TargetRefPaths"/>
-        </ProtoTypeResolve>
-        
         <ItemGroup>
-            <Protobuf Include="@(_TargetBaseProtos)" Condition=" @(_TargetBaseProtos) != ''">
+            <Protobuf Include="%(ProtoPathOfBaseType.Identity)" Condition="%(ProtoPathOfBaseType.Identity) != ''">
                 <ContractOutputOptions>nocontract</ContractOutputOptions>
                 <OutputDir>$(ObjPath)Protobuf/base</OutputDir>
             </Protobuf>
-            <Protobuf Include="@(_TargetRefProtos)" Condition=" @(_TargetRefProtos) != ''">
+            <Protobuf Include="%(ProtoPathOfRefType.Identity)" Condition="%(ProtoPathOfRefType.Identity) != ''">
                 <ContractOutputOptions>reference</ContractOutputOptions>
                 <Access>Internal</Access>
                 <OutputDir>$(ObjPath)Protobuf/reference</OutputDir>
