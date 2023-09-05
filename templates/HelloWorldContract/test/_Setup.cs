@@ -3,26 +3,31 @@ using AElf.Testing.TestBase;
 
 namespace AElf.Contracts.HelloWorld
 {
-    // The Module class load the context required for unit testing
+    // This class is used to load the context required for unit testing.
     public class Module : ContractTestModule<HelloWorld>
     {
         
     }
     
-    // The TestBase class inherit ContractTestBase class, it defines Stub classes and gets instances required for unit testing
+    // The TestBase class inherit ContractTestBase class, which is used to define and get stub classes required for unit testing.
     public class TestBase : ContractTestBase<Module>
     {
-        // The Stub class for unit testing
+        // You can get address of any contract via GetAddress method, for example:
+        // internal Address ContractAddress => GetAddress(SmartContractAddressNameProvider.StringName);
+        // Using the address and key to get stub, Like this:
+        // TokenContractContainer.TokenContractStub stub = GetTester<TokenContractContainer.TokenContractStub>(TokenContractAddress, keyPair);
+
+        // Declare stub class for unit testing.
         internal readonly HelloWorldContainer.HelloWorldStub HelloWorldStub;
-        // A key pair that can be used to interact with the contract instance
+        // private ECKeyPair KeyPair.
         private ECKeyPair DefaultKeyPair => Accounts[0].KeyPair;
 
         public TestBase()
         {
-            HelloWorldStub = GetHelloWorldContractStub(DefaultKeyPair);
+            HelloWorldStub = GetdemoStub(DefaultKeyPair);
         }
 
-        private HelloWorldContainer.HelloWorldStub GetHelloWorldContractStub(ECKeyPair senderKeyPair)
+        private HelloWorldContainer.HelloWorldStub GetdemoStub(ECKeyPair senderKeyPair)
         {
             return GetTester<HelloWorldContainer.HelloWorldStub>(ContractAddress, senderKeyPair);
         }

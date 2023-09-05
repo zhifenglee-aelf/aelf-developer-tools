@@ -11,17 +11,15 @@
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
     <PropertyGroup>
-        <ObjPath>$(MSBuildProjectDirectory)/$(BaseIntermediateOutputPath)$(Configuration)/$(TargetFramework)/</ObjPath>
+        <ObjPath>$(OutputPath)obj/$(Configuration)/$(TargetFramework)/</ObjPath>
     </PropertyGroup>
 
-    <Target Name="ProtoGeneratedRecognition" AfterTargets="CoreCompile">
-        <ItemGroup>
-            <Compile Include="$(ObjPath)Protobuf/**/*.cs" />
-        </ItemGroup>
-    </Target>
+    <ItemGroup>
+        <Compile Include="$(ObjPath)Protobuf/**/*.cs" />
+    </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AElf.Sdk.CSharp" Version="1.5.0" />
+        <PackageReference Include="AElf.Sdk.CSharp" Version="1.3.0" />
         <PackageReference Include="AElf.Tools" Version="1.0.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
