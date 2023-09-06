@@ -3,11 +3,6 @@
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>AElf.Contracts.HelloWorld</RootNamespace>
         <IsContract>true</IsContract>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
     <PropertyGroup>
