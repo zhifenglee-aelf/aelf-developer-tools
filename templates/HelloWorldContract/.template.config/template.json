@@ -11,11 +11,11 @@
     "language": "C#",
     "type": "project"
   },
-  "sourceName": "HelloWorldContract",
+  "sourceName": "HelloWorld",
   "symbols": {
     "NamespacePath": {
       "type": "parameter",
-      "replaces": "AElf.Contracts.HelloWorldContract"
+      "replaces": "AElf.Contracts.HelloWorld"
     }
   }
 }
