@@ -277,6 +277,10 @@
   <Target Name="_Protobuf_CoreCompile"
           Condition=" '$(DisableProtobufDesignTimeBuild)' != 'true' "
           DependsOnTargets="Protobuf_PrepareCompileOptions;_Protobuf_GatherStaleFiles">
+    <!--  Clean up the old folders before compile  -->
+    <Delete Files="%(_Protobuf_OutOfDateProto.OutputDir)/*.*" Condition=" '@(_Protobuf_OutOfDateProto)' != '' " />
+    <RemoveDir Directories="%(_Protobuf_OutOfDateProto.OutputDir)" Condition=" '@(_Protobuf_OutOfDateProto)' != '' " />
+    
     <!-- Ensure output directories. -->
     <MakeDir Directories="%(_Protobuf_OutOfDateProto.OutputDir)" />
     <MakeDir Directories="%(_Protobuf_OutOfDateProto.GrpcOutputDir)" />
