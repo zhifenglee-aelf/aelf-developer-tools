@@ -17,6 +17,14 @@
     
     <Target Name="ProtoRecoginziton" BeforeTargets="BeforeBuild">
         <ItemGroup>
+            <ProtoPackagePathOfAllType Include="@(PackageReference->'$(NuGetPackageRoot)%(Identity)/%(Version)/Protobuf'->Exists())" />
+        </ItemGroup>
+        <Error Text="In the src folder, the ProtoType value can only be 'base' or 'reference'."
+               Condition="!Exists('$(ProjectDir)Protobuf/stub') AND '%(ProtoPackagePathOfAllType.ProtoType)' != 'base' AND '%(ProtoPackagePathOfAllType.ProtoType)' != '' AND '%(ProtoPackagePathOfAllType.ProtoType)' != 'reference'"/>
+        <Error Text="In the test folder, the ProtoType value can only be 'base'."
+               Condition="Exists('$(ProjectDir)Protobuf/stub') AND '%(ProtoPackagePathOfAllType.ProtoType)' != 'base' AND '%(ProtoPackagePathOfAllType.ProtoType)' != ''"/>
+        
+        <ItemGroup>
             <ProtoPackagePathOfBaseType Include="@(PackageReference->'$(NuGetPackageRoot)%(Identity)/%(Version)/Protobuf'->Exists())" 
                                         Condition="'%(PackageReference.ProtoType)' == '' OR '%(PackageReference.ProtoType)' == 'base'"/>
             <ProtoPackagePathOfRefType Include="@(PackageReference->'$(NuGetPackageRoot)%(Identity)/%(Version)/Protobuf'->Exists())" 
