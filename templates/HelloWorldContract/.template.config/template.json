@@ -6,7 +6,7 @@
   ],
   "identity": "AElf.Contract",
   "name": "AElf Contract",
-  "shortName": "aelfcontract",
+  "shortName": "aelf",
   "tags": {
     "language": "C#",
     "type": "project"
