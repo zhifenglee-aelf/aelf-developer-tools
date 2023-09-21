@@ -277,6 +277,10 @@
   <Target Name="_Protobuf_CoreCompile"
           Condition=" '$(DisableProtobufDesignTimeBuild)' != 'true' "
           DependsOnTargets="Protobuf_PrepareCompileOptions;_Protobuf_GatherStaleFiles">
+    <!--  Clean up the old folders before compile  -->
+    <Delete Files="%(_Protobuf_OutOfDateProto.OutputDir)/*.*" Condition=" '@(_Protobuf_OutOfDateProto)' != '' " />
+    <RemoveDir Directories="%(_Protobuf_OutOfDateProto.OutputDir)" Condition=" '@(_Protobuf_OutOfDateProto)' != '' " />
+    
     <!-- Ensure output directories. -->
     <MakeDir Directories="%(_Protobuf_OutOfDateProto.OutputDir)" />
     <MakeDir Directories="%(_Protobuf_OutOfDateProto.GrpcOutputDir)" />
@@ -293,7 +297,7 @@
       ToolExe="$(Protobuf_ProtocFullPath)"
       Generator="$(Protobuf_Generator)"
       Protobuf="%(_Protobuf_OutOfDateProto.Source)"
-      ProtoPath="%(_Protobuf_OutOfDateProto.AdditionalImportDirs);$(Protobuf_StandardImportsPath);%(_Protobuf_OutOfDateProto.ProtoRoot)"
+      ProtoPath="%(_Protobuf_OutOfDateProto.AdditionalImportDirs);$(Protobuf_StandardImportsPath);%(_Protobuf_OutOfDateProto.ProtoRoot);@(ProtoProjectCompilePath);@(ProtoPackagePathOfBaseType);@(ProtoPackagePathOfRefType)"
       ProtoDepDir="$(Protobuf_DepFilesPath)"
       OutputDir="%(_Protobuf_OutOfDateProto.OutputDir)"
       OutputOptions="%(_Protobuf_OutOfDateProto.OutputOptions);%(_Protobuf_OutOfDateProto._OutputOptions)"
