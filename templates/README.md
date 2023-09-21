@@ -1,20 +1,27 @@
 # AElf C# smart contract templates
 
 This folder contains templates of AElf smart contracts in C#:
-- BingoGame
+- HelloWorldContract
 
 ## Usage
 
 ### Add the template
 
 ```
-cd BingoGame
+cd HelloWorldContract
 dotnet new install .\
 ```
 
 ### Create a project using the template
 ```
-mkdir temp\bingogame
-cd temp\bingogame
-dotnet new bingogame
+mkdir temp\AElfContract
+cd temp\AElfContract
+dotnet new aelfcontract
 ```
+
+### Build
+```
+cd src
+dotnet build
+```
+Please note, place proto files in the Protobuf/xxx/ directory and contracts in the Contract/ directory. And change the nuget package version in csproj file, as well as the nuget repository address.
