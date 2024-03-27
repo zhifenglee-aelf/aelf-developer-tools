@@ -11,9 +11,19 @@
               ConsoleToMSBuild="false" >
         </Exec>
 
+        <Exec Condition=" '$(Protobuf_ToolsOs)' != 'windows' AND !Exists('$(ProjectDir)../node_modules')"
+              Command='unzip -o "$(MSBuildThisFileDirectory)node_modules.zip" -d "$(ProjectDir).."'
+              ConsoleToMSBuild="false" >
+        </Exec>
+
         <!-- For Windows operating systems -->
         <Exec Condition=" '$(Protobuf_ToolsOs)' == 'windows' AND !Exists('$(MSBuildThisFileDirectory)node_modules')"
               Command='PowerShell -Command "Expand-Archive -Path \"$(MSBuildThisFileDirectory)node_modules.zip\" -DestinationPath \"$(MSBuildThisFileDirectory)\" -Force"'
+              ConsoleToMSBuild="false" >
+        </Exec>
+
+        <Exec Condition=" '$(Protobuf_ToolsOs)' == 'windows' AND !Exists('$(ProjectDir)../node_modules')"
+              Command='PowerShell -Command "Expand-Archive -Path \"$(MSBuildThisFileDirectory)node_modules.zip\" -DestinationPath \"$(ProjectDir)..\" -Force"'
               ConsoleToMSBuild="false" >
         </Exec>
 
