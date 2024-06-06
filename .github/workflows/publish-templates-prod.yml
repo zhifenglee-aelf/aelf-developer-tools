@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKING_DIRECTORY: templates
+    environment: prod
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

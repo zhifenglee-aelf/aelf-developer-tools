@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKING_DIRECTORY: templates
+      environment: staging
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
