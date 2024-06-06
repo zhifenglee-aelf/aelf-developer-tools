@@ -31,5 +31,5 @@ jobs:
         uses: dansiegel/publish-nuget@v1.2
         with:
           filename: '**/*.nupkg'
-          apiKey: ${{ secrets.PREVIEW_NUGET_API_KEY }}
-          feedUrl: ${{ secrets.PREVIEW_NUGET_FEED_URL }}
+          apiKey: ${{ secrets.TEST_NUGET_API_KEY }}
+          feedUrl: ${{ secrets.TEST_NUGET_FEED_URL }}
