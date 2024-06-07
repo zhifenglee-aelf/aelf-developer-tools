@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageType>Contract</PackageType>
-        <PackageId>AElf.ContractTemplates</PackageId>
+        <PackageId>AElf.ContractTemplates.TestProd</PackageId>
         <Title>AElf Contract</Title>
         <Authors>AElf</Authors>
         <Description>Templates to use when creating an template for AElf Contract.</Description>
