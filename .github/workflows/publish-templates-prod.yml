@@ -57,4 +57,4 @@ jobs:
         if: env.IS_ON_MASTER == 'true'
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEMPLATES_NUGET_API_KEY }} --source ${{ secrets.TEMPLATES_NUGET_SOURCE_URL }}
+          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEMPLATES_NUGET_API_KEY }} --source ${{ vars.TEMPLATES_NUGET_SOURCE_URL }}
