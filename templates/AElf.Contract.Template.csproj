@@ -20,6 +20,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="AElf.Cryptography" Version="1.5.0" />
     </ItemGroup>
 
