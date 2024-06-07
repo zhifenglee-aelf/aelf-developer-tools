@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKING_DIRECTORY: templates
-      environment: staging
+    environment: staging
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -31,4 +31,4 @@ jobs:
       - name: Publish NuGet packages
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEST_NUGET_API_KEY }} --source https://apiint.nugettest.org/v3/index.json
+          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEST_NUGET_API_KEY }} --source $TEST_NUGET_SOURCE_URL
