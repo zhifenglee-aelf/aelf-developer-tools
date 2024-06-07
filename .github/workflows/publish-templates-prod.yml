@@ -2,12 +2,11 @@ on:
   push:
     tags:
       - 'templates-v*'
-    branches:
-      - master
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     env:
       WORKING_DIRECTORY: templates
     environment: prod
