@@ -31,4 +31,4 @@ jobs:
       - name: Publish NuGet packages
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEST_NUGET_API_KEY }} --source https://int.nugettest.org/
+          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEST_NUGET_API_KEY }} --source ${{ secrets.TEST_NUGET_FEED_URL }}
